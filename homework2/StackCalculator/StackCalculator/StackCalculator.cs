@@ -31,10 +31,15 @@ public static class StackCalculator
                 case "-":
                 case "*":
                 case "/":
-                    if (stack.IsEmpty()) return (false, 0);
-                    var top = stack.Pop();
-                    if (stack.IsEmpty() || (current == "/" && Math.Abs(top) < 1e-9)) 
+                    if (stack.IsEmpty())
+                    {
                         return (false, 0);
+                    }
+                    var top = stack.Pop();
+                    if (stack.IsEmpty() || (current == "/" && Math.Abs(top) < 1e-9))
+                    {
+                        return (false, 0);
+                    }
                     stack.Push(top);
                     PerformOperation(current, stack);
                     break;
@@ -45,8 +50,10 @@ public static class StackCalculator
         }
 
         var result = stack.Pop();
-        if (stack.IsEmpty()) 
+        if (stack.IsEmpty())
+        {
             return (true, result);
+        }
         stack.Clear();
         return (false, 0);
     }

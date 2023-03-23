@@ -34,7 +34,10 @@ public class StackList : IStack
     /// <exception cref="InvalidOperationException">If the stack is empty.</exception>
     public float Pop()
     {
-        if (IsEmpty()) throw new InvalidOperationException();
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException();
+        }
         var value = top!.Value;
         top = top.Next;
         return value;

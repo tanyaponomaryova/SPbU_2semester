@@ -33,7 +33,10 @@ public class StackArray : IStack
     /// <param name="value">is element you want to add.</param>
     public void Push(float value)
     {
-        if (amount == stackElements.Length) Resize();
+        if (amount == stackElements.Length)
+        {
+            Resize();
+        }
 
         stackElements[amount] = value;
         amount++;
@@ -46,7 +49,10 @@ public class StackArray : IStack
     /// <exception cref="InvalidOperationException">If the stack is empty.</exception>
     public float Pop()
     {
-        if (IsEmpty()) throw new InvalidOperationException();
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException();
+        }
         amount--;
         var value = stackElements[amount];
         stackElements[amount] = 0;

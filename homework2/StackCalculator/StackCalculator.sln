@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackCalculator", "StackCalculator\StackCalculator.csproj", "{DFCC2E0E-CB9B-4AD6-9AE1-790AB3D59D1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackCalculator.Tests", "StackCalculator.Tests\StackCalculator.Tests.csproj", "{AB1A7EAE-7BFE-4EC5-A82B-6002D3DD1B69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{DFCC2E0E-CB9B-4AD6-9AE1-790AB3D59D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFCC2E0E-CB9B-4AD6-9AE1-790AB3D59D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFCC2E0E-CB9B-4AD6-9AE1-790AB3D59D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB1A7EAE-7BFE-4EC5-A82B-6002D3DD1B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB1A7EAE-7BFE-4EC5-A82B-6002D3DD1B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB1A7EAE-7BFE-4EC5-A82B-6002D3DD1B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB1A7EAE-7BFE-4EC5-A82B-6002D3DD1B69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
