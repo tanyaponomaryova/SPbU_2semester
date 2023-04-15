@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Drawing;
 
 namespace LZW;
 
@@ -6,58 +7,59 @@ class Program
 {
     static void Main(string[] args)
     {
-        /*for (int k = 0; k < 50000; k++)
-        {
-            Random random = new Random();
-            int size = random.Next(10, 200);
-            var stringToCompress = new char[size];
-            for (int i = 0; i < size; i++)
-            {
-                stringToCompress[i] = (char)random.Next(33, 100);
-            }
-            for (int j = 0; j < stringToCompress.Length; j++)
-            {
-                Console.Write(stringToCompress[j]);
-            }
-
-            Console.WriteLine();
-            
-            var resultOfCompression = MyLZW.CompressWithList(stringToCompress);
-            (bool isCorrect, var resultOfDecompression) = MyLZW.Decompress(resultOfCompression);
-
-            for (int i = 0; i < stringToCompress.Length; i++)
-            {
-                if (stringToCompress[i] != resultOfDecompression[i] || stringToCompress.Length != resultOfDecompression.Length || isCorrect == false)
-                {
-                    Console.WriteLine("WARNING!!!! input string");
-                    return;
-                }
-            }
-        }
-        var myString = "ABCD";
-        var stringToCompress = myString.ToCharArray();
-        var resultOfCompression = MyLZW.CompressWithList(stringToCompress);
-        (bool isCorrect, var resultOfDecompression) = MyLZW.Decompress(resultOfCompression);*/
         if (args.Length != 2)
         {
-            Console.WriteLine("Incorrect input!");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nIncorrect input! Arguments must be file path and key -c or -u to compress and decompress file respectively.\n");
+            Console.ResetColor();
+            return;
+        }
+
+        if (!File.Exists(args[0]))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nFile path is invalid.\n");
+            Console.ResetColor();
             return;
         }
 
         if (string.Equals(args[1], "-c"))
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             LZW.CompressFile(args[0]);
-            Console.WriteLine("Compressed file was created.");
-            
+            Console.WriteLine($"\nCompressed file {args[0]}.zipped was created.");
             FileInfo notCompressedFile = new FileInfo(args[0]);
             FileInfo compressedFile = new FileInfo(args[0] + ".zipped");
-            Console.WriteLine($"Compression coefficient: {notCompressedFile.Length / compressedFile.Length}");
+            Console.WriteLine($"\nCompression coefficient (size of initial file / size of compressed file): {(float)notCompressedFile.Length / (float)compressedFile.Length}.\n");
         }
         else if (string.Equals(args[1], "-u"))
         {
+            if (!args[0].EndsWith(".zipped"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nFile for decompression is invalid. File must be called \"*.zipped\".\n");
+                Console.ResetColor();
+                return;
+            }
             bool isCompressionCorrect = LZW.DecompressFile(args[0]);
-            Console.WriteLine(isCompressionCorrect ? "Decompressed file was created." : "Decompression failed :(");
+            if (isCompressionCorrect)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\nDecompressed file {args[0].Remove(args[0].Length - 7)} was created.\n");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Decompression failed :(\n");
+            }
         }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nKey must be -c or -u to compress and decompress file respectively.\n");
+        }
+        
+        Console.ResetColor();
     }
 }
 

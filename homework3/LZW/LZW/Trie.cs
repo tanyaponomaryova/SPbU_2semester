@@ -1,8 +1,10 @@
 ﻿namespace LZW;
+
+/// <summary>
+/// Trie data structure with possibility of character-by-character addition and a pointer to the current node.
+/// </summary>
 public class Trie
 {
-    private Node root;
-
     private class Node
     {
         public Dictionary<char, Node> Children { get; set; }
@@ -16,43 +18,44 @@ public class Trie
         }
     }
     
-    private Node currentNode;
+    private Node root;
     
-    private int numberForNewNode;
+    private Node currentNodePointer;
 
+    private int numberOfSequences = 0;
+    
+    /// <summary>
+    /// Initializes new instance of Trie class.
+    /// </summary>
     public Trie()
     {
         root = new Node(-1);
-        currentNode = root;
-        numberForNewNode = -1;
+        currentNodePointer = root;
     }
 
     /// <summary>
-    /// Adds chat type element to trie.
+    /// Adds char type element to trie.
     /// </summary>
     /// <param name="symbol"></param>
     /// <returns>true and number of sequence if sequence from current node
-    /// and given symbol is already in trie, else false and number of new sequence.</returns>
-    public (bool isInTree, int elementNumber) AddSymbol(char symbol)
+    /// and given symbol are already in trie, else false and number of new sequence.</returns>
+    public (bool isInTree, int elementNumber) AddSymbolWithPointer(char symbol)
     {
         bool isInTree = true;
         int elementNumber = 0;
         
-        if (!currentNode.Children.ContainsKey(symbol))
+        if (!currentNodePointer.Children.ContainsKey(symbol))
         {
-            numberForNewNode++;
-            var newNode = new Node(numberForNewNode);
-            currentNode.Children[symbol] = newNode;
-
+            currentNodePointer.Children.Add(symbol, new Node(numberOfSequences));
             isInTree = false;
-            elementNumber = numberForNewNode;
-
-            currentNode = root;
+            elementNumber = numberOfSequences;
+            currentNodePointer = root;
+            numberOfSequences++;
         }
         else
         {
-            currentNode = currentNode.Children[symbol];
-            elementNumber = currentNode.Number;
+            currentNodePointer = currentNodePointer.Children[symbol];
+            elementNumber = currentNodePointer.Number;
         }
 
         return (isInTree, elementNumber);

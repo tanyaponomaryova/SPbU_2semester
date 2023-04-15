@@ -19,7 +19,7 @@ public static class LZW
         Trie trie = new Trie();
         for (int i = 0; i < 256; i++)
         {
-            trie.AddSymbol((char)i); 
+            trie.AddSymbolWithPointer((char)i); 
         }
         
         var buffer = new List<bool>();
@@ -33,7 +33,7 @@ public static class LZW
             while (isInTrie && byteArrayIndex < byteArray.Length)
             {
                 previousSequenceNumber = currentSequenceNumber;
-                (isInTrie, currentSequenceNumber) = trie.AddSymbol((char)byteArray[byteArrayIndex]);
+                (isInTrie, currentSequenceNumber) = trie.AddSymbolWithPointer((char)byteArray[byteArrayIndex]);
                 byteArrayIndex++;
             }
 
