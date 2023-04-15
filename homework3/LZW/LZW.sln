@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LZW", "LZW\LZW.csproj", "{3458DB6A-6066-41BD-AD02-13B419E4DB29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LZW.Tests", "LZW.Tests\LZW.Tests.csproj", "{BD8AA936-9809-463A-A6E3-A553F7A077EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3458DB6A-6066-41BD-AD02-13B419E4DB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3458DB6A-6066-41BD-AD02-13B419E4DB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3458DB6A-6066-41BD-AD02-13B419E4DB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3458DB6A-6066-41BD-AD02-13B419E4DB29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8AA936-9809-463A-A6E3-A553F7A077EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8AA936-9809-463A-A6E3-A553F7A077EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8AA936-9809-463A-A6E3-A553F7A077EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8AA936-9809-463A-A6E3-A553F7A077EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
