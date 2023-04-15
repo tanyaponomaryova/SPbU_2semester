@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build-Windows:
@@ -8,7 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
       - name: Build
-        run: for dir in */; do cd $dir; for dir in */; do cd $dir; for sln in *.sln; do dotnet build $sln; cd ..
+        run: $slnInList = Get-ChildItem -Recurse -Filter '*.sln'; foreach ($file in $slnInList) {dotnet build $file.FullName}
+        shell: pwsh
       - name: Test with the dotnet CLI
-        run: for dir in */; do cd $dir; for sln in *.sln; do dotnet test $sln
+        run: $slnInList = Get-ChildItem -Recurse -Filter '*.sln'; foreach ($file in $slnInList) {dotnet test $file.FullName}
+        shell: pwsh
