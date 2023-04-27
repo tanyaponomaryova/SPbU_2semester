@@ -50,8 +50,10 @@ namespace Calculator
             NumberCopiedToDisplay,
             EqualitySign,
             AfterPoint,
-            Error
+            Error,
+            Square
         }
+
         State currentState = State.NumberTyping;
 
         public void Clear()
@@ -93,30 +95,46 @@ namespace Calculator
             }
         }
 
-        public void EqualitySignPressed()
+        public void EqualitySign()
         {
-            if (operationSign == ' ')
+            if (currentState != State.Error)
             {
-                ExpressionOnTop = DisplayNumber + " =";
-                currentState = State.EqualitySign;
+                if (operationSign == ' ')
+                {
+                    ExpressionOnTop = DisplayNumber + " =";
+                    currentState = State.EqualitySign;
+                }
+                else
+                {
+                    try
+                    {
+                        if (currentState == State.EqualitySign)
+                        {
+                            var result = PerformArithmeticOperationWithStrings(DisplayNumber, tempCalculationValue, operationSign);
+                            ExpressionOnTop = DisplayNumber + " " + operationSign + " " + tempCalculationValue + " =";
+                            DisplayNumber = result.ToString();
+                        }
+                        else
+                        {
+                            var result = PerformArithmeticOperationWithStrings(tempCalculationValue, DisplayNumber, operationSign);
+                            ExpressionOnTop = tempCalculationValue + " " + operationSign + " " + DisplayNumber + " =";
+                            tempCalculationValue = DisplayNumber;
+                            DisplayNumber = result.ToString();
+                            currentState = State.EqualitySign;
+                        }
+                    }
+                    catch
+                    {
+                        Clear();
+                        DisplayNumber = errorMessage;
+                        currentState = State.Error;
+                    }
+                }
             }
             else
             {
-                try
-                {
-                    var result = PerformArithmeticOperationWithStrings(tempCalculationValue, DisplayNumber, operationSign);
-                    ExpressionOnTop = tempCalculationValue + " " + operationSign + " " + DisplayNumber + " =";
-                    DisplayNumber = result.ToString();
-                    tempCalculationValue = result.ToString();
-                    operationSign = ' ';
-                    currentState = State.EqualitySign;
-                }
-                catch
-                {
-                    Clear();
-                    currentState = State.Error;
-                    DisplayNumber = errorMessage;
-                }
+                Clear();
+                currentState = State.NumberTyping;
             }
         }
 
@@ -139,16 +157,11 @@ namespace Calculator
                     else if (IsOperationSign(symbol))
                     {
                         PerformArithmeticOperationWithDisplayAndTempValue(symbol);
-
                     }
                     else if (symbol == decimalPoint)
                     {
                         DisplayNumber += symbol.ToString();
                         currentState = State.AfterPoint;
-                    }
-                    else if (symbol == '=')
-                    {
-                        EqualitySignPressed();
                     }
                     break;
 
@@ -168,10 +181,6 @@ namespace Calculator
                         ExpressionOnTop = ExpressionOnTop.Substring(0, ExpressionOnTop.Length - 1) + symbol.ToString();
                         operationSign = symbol;
                     }
-                    else if (symbol == '=')
-                    {
-                        EqualitySignPressed();
-                    }
                     break;
 
                 case State.AfterPoint:
@@ -182,10 +191,6 @@ namespace Calculator
                     else if (IsOperationSign(symbol))
                     {
                         PerformArithmeticOperationWithDisplayAndTempValue(symbol);
-                    }
-                    else if (symbol == '=')
-                    {
-                        EqualitySignPressed();
                     }
                     break;
 
@@ -198,6 +203,7 @@ namespace Calculator
                     }
                     else if (symbol == decimalPoint)
                     {
+                        Clear();
                         DisplayNumber += decimalPoint;
                         currentState = State.AfterPoint;
                     }
@@ -207,10 +213,6 @@ namespace Calculator
                         tempCalculationValue = DisplayNumber;
                         operationSign = symbol;
                         currentState = State.NumberCopiedToDisplay;
-                    }
-                    else if (symbol == '=')
-                    {
-                        EqualitySignPressed();
                     }
                     break;
 
@@ -248,8 +250,16 @@ namespace Calculator
         {
             if (currentState != State.Error)
             {
-                ExpressionOnTop += " sqr(" + DisplayNumber + ")";
-                DisplayNumber = PerformArithmeticOperationWithStrings(DisplayNumber, DisplayNumber, '*').ToString();
+                if (currentState == State.EqualitySign)
+                {
+                    ExpressionOnTop = "sqr(" + DisplayNumber + ")";
+                    DisplayNumber = PerformArithmeticOperationWithStrings(DisplayNumber, DisplayNumber, '*').ToString();
+                }
+                else
+                {
+                    ExpressionOnTop += " sqr(" + DisplayNumber + ")";
+                    DisplayNumber = PerformArithmeticOperationWithStrings(DisplayNumber, DisplayNumber, '*').ToString();
+                }
             }
         }
 

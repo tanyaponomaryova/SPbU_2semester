@@ -427,7 +427,7 @@
             equalButton.TabIndex = 16;
             equalButton.Text = "=";
             equalButton.UseVisualStyleBackColor = false;
-            equalButton.Click += NumberOrOperationButton_Click;
+            equalButton.Click += EqualButton_Click;
             // 
             // decimalPointButton
             // 

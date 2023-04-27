@@ -37,5 +37,10 @@ namespace Calculator
         {
             calculatorLogic.Reciprocal();
         }
+
+        private void EqualButton_Click(object sender, EventArgs e)
+        {
+            calculatorLogic.EqualitySign();
+        }
     }
 }
