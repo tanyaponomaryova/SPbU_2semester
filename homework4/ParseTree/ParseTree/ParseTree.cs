@@ -1,51 +1,49 @@
 ﻿namespace ParseTree;
 
 /// <summary>
-/// Class for building, calculation and printing parse tree.
+///     Class for building, calculation and printing parse tree.
 /// </summary>
 public class ParseTree
 {
     private INode root;
 
     /// <summary>
-    /// Initializes parse tree.
+    ///     Initializes parse tree.
     /// </summary>
     /// <param name="expression">expression for parse tree.</param>
     public ParseTree(string expression)
     {
-        Build(expression);
-    }
-
-    private void Build(string expression)
-    {
-        var values = expression.Split(new char[] { ' ', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
+        var tokens = expression.Split(new[] { ' ', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
         var position = -1;
         root = NewNode();
 
         INode NewNode()
         {
             position++;
-            if (int.TryParse(values[position], out int number))
-            {
-                return new Operand(number);
-            }
+            if (position >= tokens.Length) throw new ArgumentException("Expression is not full.");
 
-            Operation newNode = values[position] switch
+            if (int.TryParse(tokens[position], out var number)) return new Operand(number);
+
+            Operation newNode = tokens[position] switch
             {
                 "+" => new Addition(),
                 "-" => new Subtraction(),
                 "*" => new Multiplication(),
-                "/" => new Subtraction(),
+                "/" => new Division(),
+                _ => throw new ArgumentException("There are incorrect symbols in the expression. It can only contain integers, signs of operations and round brackets")
             };
 
             newNode.LeftChild = NewNode();
             newNode.RightChild = NewNode();
             return newNode;
         }
+
+        if (position != tokens.Length - 1)
+            throw new ArgumentException("The expression contains extra operations and operands that were not included in the parse tree.");
     }
 
     /// <summary>
-    /// Prints parse tree.
+    ///     Prints parse tree.
     /// </summary>
     public void Print()
     {
@@ -53,10 +51,10 @@ public class ParseTree
     }
 
     /// <summary>
-    /// Calculates value of parse tree.
+    ///     Calculates value of parse tree.
     /// </summary>
     /// <returns>result of calculation.</returns>
-    public int Calculate()
+    public float Calculate()
     {
         return root.Calculate();
     }

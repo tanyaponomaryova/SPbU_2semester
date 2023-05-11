@@ -1,18 +1,18 @@
 ﻿namespace ParseTree;
 
 /// <summary>
-/// Interface for nodes of tree.
+///     Interface for nodes of tree.
 /// </summary>
 public interface INode
 {
     /// <summary>
-    /// Prints node to console.
+    ///     Prints node to console.
     /// </summary>
     void Print();
 
     /// <summary>
-    /// Calculates value of node.
+    ///     Calculates value of node.
     /// </summary>
     /// <returns>result of calculations. </returns>
-    int Calculate();
+    float Calculate();
 }

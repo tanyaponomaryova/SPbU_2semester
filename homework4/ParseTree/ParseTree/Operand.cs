@@ -1,26 +1,26 @@
 ﻿namespace ParseTree;
 
 /// <summary>
-/// Class for operands.
+///     Class for operands.
 /// </summary>
 public class Operand : INode
 {
     /// <summary>
-    /// Initializes operand node.
+    ///     Initializes operand node.
     /// </summary>
     /// <param name="value">value of operand node.</param>
     public Operand(int value)
     {
         Value = value;
     }
-    
+
     /// <summary>
-    /// Gets and sets operand's value.
+    ///     Gets and sets operand's value.
     /// </summary>
-    public int Value { get; set; }
-    
+    public float Value { get; set; }
+
     /// <summary>
-    /// Prints node's value.
+    ///     Prints node's value.
     /// </summary>
     public void Print()
     {
@@ -28,10 +28,10 @@ public class Operand : INode
     }
 
     /// <summary>
-    /// Calculates value of node.
+    ///     Calculates value of node.
     /// </summary>
     /// <returns>value of operand.</returns>
-    public int Calculate()
+    public float Calculate()
     {
         return Value;
     }
