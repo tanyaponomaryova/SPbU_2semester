@@ -6,14 +6,14 @@
 public class OrdinaryList
 {
     private Node? head;
-    
+
     private class Node
     {
         public Node(int value)
         {
             Value = value;
         }
-        
+
         public int Value { get; set; }
         public Node? Next { get; set; }
     }
@@ -22,7 +22,7 @@ public class OrdinaryList
     /// Number of elements in the list.
     /// </summary>
     public int Size { get; private set; }
-    
+
     /// <summary>
     /// Adds element to the list by position.
     /// </summary>
@@ -34,14 +34,14 @@ public class OrdinaryList
     {
         if (position < 0 || position > Size)
         {
-            throw new InvalidPositionException();
+            throw new InvalidPositionException("Position of element to add cannot be negative or bigger than size of the list.");
         }
 
         Size++;
 
         Node? previousNode = null;
         var currentNode = head;
-        for (int i = 0; i < position; i++)
+        for (var i = 0; i < position; i++)
         {
             previousNode = currentNode;
             currentNode = currentNode!.Next;
@@ -59,7 +59,7 @@ public class OrdinaryList
             newNode.Next = currentNode;
         }
     }
-    
+
     /// <summary>
     /// Removes element by value.
     /// </summary>
@@ -70,7 +70,7 @@ public class OrdinaryList
         var currentNode = head;
         if (currentNode == null)
         {
-            throw new RemovingNonExistingValueException();
+            throw new RemovingNonExistingValueException("You cannot remove elements from an empty list.");
         }
 
         if (currentNode.Value == value)
@@ -91,9 +91,8 @@ public class OrdinaryList
 
             currentNode = currentNode.Next;
         }
-        
-        
-        throw new RemovingNonExistingValueException();
+
+        throw new RemovingNonExistingValueException($"List doesn't contain {value}.");
     }
 
     /// <summary>
@@ -106,7 +105,7 @@ public class OrdinaryList
     {
         if (position < 0 || position > Size - 1)
         {
-            throw new InvalidPositionException();
+            throw new InvalidPositionException("Position of element to remove cannot be negative or bigger than size of the list - 1.");
         }
 
         Size--;
@@ -115,16 +114,13 @@ public class OrdinaryList
             head = head!.Next;
             return;
         }
-        
+
         var currentNode = head;
-        for (int i = 0; i < position - 1; i++)
-        {
-            currentNode = currentNode!.Next;
-        }
+        for (var i = 0; i < position - 1; i++) currentNode = currentNode!.Next;
 
         currentNode!.Next = currentNode.Next!.Next;
     }
-    
+
     /// <summary>
     /// Changes value of element on given position.
     /// </summary>
@@ -137,14 +133,11 @@ public class OrdinaryList
     {
         if (position < 0 || position > Size - 1)
         {
-            throw new InvalidPositionException();
+            throw new InvalidPositionException("Position of element to change cannot be negative or bigger than size of the list - 1.");
         }
 
         var currentNode = head;
-        for (int i = 0; i < position; i++)
-        {
-            currentNode = currentNode!.Next;
-        }
+        for (var i = 0; i < position; i++) currentNode = currentNode!.Next;
 
         currentNode!.Value = newValue;
     }
@@ -157,7 +150,7 @@ public class OrdinaryList
     public bool Contains(int value)
     {
         var currentNode = head;
-        for (int i = 0; i < Size; i++)
+        for (var i = 0; i < Size; i++)
         {
             if (currentNode!.Value == value)
             {
@@ -178,12 +171,9 @@ public class OrdinaryList
     public int PositionOf(int value)
     {
         var currentNode = head;
-        for (int i = 0; i < Size; i++)
+        for (var i = 0; i < Size; i++)
         {
-            if (currentNode!.Value == value)
-            {
-                return i;
-            }
+            if (currentNode!.Value == value) return i;
 
             currentNode = currentNode.Next;
         }

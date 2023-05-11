@@ -1,4 +1,5 @@
 namespace UniqueList.Tests;
+
 using NUnit.Framework;
 
 [TestFixture]
@@ -15,11 +16,11 @@ public class Tests
     [Test]
     public void AddByPositionTest()
     {
-        Assert.IsTrue(list.Size == 0); 
+        Assert.IsTrue(list.Size == 0);
         list.AddByPosition(34, 0);
-        Assert.IsTrue(list.Size == 1); 
+        Assert.IsTrue(list.Size == 1);
         list.AddByPosition(15, 0);
-        Assert.IsTrue(list.Size == 2); 
+        Assert.IsTrue(list.Size == 2);
         list.AddByPosition(20, 0);
         Assert.IsTrue(list.Size == 3);
     }
@@ -55,11 +56,8 @@ public class Tests
     [Test]
     public void RemoveByPositionTest()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            list.AddByPosition(i, i);
-        }
-        
+        for (var i = 0; i < 10; i++) list.AddByPosition(i, i);
+
         list.RemoveByPosition(6);
         Assert.IsFalse(list.Contains(6));
         list.RemoveByPosition(7);
@@ -72,11 +70,8 @@ public class Tests
     [Test]
     public void ChangeValueByPositionTest()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            list.AddByPosition(i, i);
-        }
-        
+        for (var i = 0; i < 10; i++) list.AddByPosition(i, i);
+
         Assert.IsTrue(list.Contains(9));
         list.ChangeValueByPosition(50, 9);
         Assert.IsFalse(list.Contains(9));

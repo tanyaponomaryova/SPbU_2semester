@@ -17,7 +17,7 @@ public class UniqueList : OrdinaryList
         {
             throw new AddingExistingValueException($"Value {value} is already in the list.");
         }
-        
+
         base.AddByPosition(value, position);
     }
 
@@ -31,14 +31,11 @@ public class UniqueList : OrdinaryList
     {
         if (Contains(newValue))
         {
-            if (position == PositionOf(newValue))
-            {
-                return;
-            }
+            if (position == PositionOf(newValue)) return;
 
             throw new AddingExistingValueException($"Value {newValue} is already in the list.");
         }
-        
+
         base.ChangeValueByPosition(newValue, position);
     }
 }

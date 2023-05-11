@@ -5,9 +5,13 @@
 /// </summary>
 public class InvalidPositionException : Exception
 {
-    public InvalidPositionException() {}
+    public InvalidPositionException()
+    {
+    }
 
-    public InvalidPositionException(string message) : base(message) {}
+    public InvalidPositionException(string message) : base(message)
+    {
+    }
 }
 
 /// <summary>
@@ -15,9 +19,13 @@ public class InvalidPositionException : Exception
 /// </summary>
 public class RemovingNonExistingValueException : Exception
 {
-    public RemovingNonExistingValueException() {}
+    public RemovingNonExistingValueException()
+    {
+    }
 
-    public RemovingNonExistingValueException(string message) : base(message) {}
+    public RemovingNonExistingValueException(string message) : base(message)
+    {
+    }
 }
 
 /// <summary>
@@ -25,7 +33,11 @@ public class RemovingNonExistingValueException : Exception
 /// </summary>
 public class AddingExistingValueException : Exception
 {
-    public AddingExistingValueException() {}
+    public AddingExistingValueException()
+    {
+    }
 
-    public AddingExistingValueException(string message) : base(message) {}
+    public AddingExistingValueException(string message) : base(message)
+    {
+    }
 }
